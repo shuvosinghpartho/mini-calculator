@@ -61,19 +61,13 @@ extern int yydebug;
     TAN = 262,                     /* TAN  */
     LOG = 263,                     /* LOG  */
     SQRT = 264,                    /* SQRT  */
-    ASIN = 265,                    /* ASIN  */
-    ACOS = 266,                    /* ACOS  */
-    ATAN = 267,                    /* ATAN  */
-    SINH = 268,                    /* SINH  */
-    COSH = 269,                    /* COSH  */
-    TANH = 270,                    /* TANH  */
-    SEC = 271,                     /* SEC  */
-    CSC = 272,                     /* CSC  */
-    COT = 273,                     /* COT  */
-    PI = 274,                      /* PI  */
-    E = 275,                       /* E  */
-    VARIABLE = 276,                /* VARIABLE  */
-    UMINUS = 277                   /* UMINUS  */
+    SEC = 265,                     /* SEC  */
+    CSC = 266,                     /* CSC  */
+    COT = 267,                     /* COT  */
+    PI = 268,                      /* PI  */
+    E = 269,                       /* E  */
+    VARIABLE = 270,                /* VARIABLE  */
+    UMINUS = 271                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -87,7 +81,7 @@ union YYSTYPE
     double val;
     char *str;
 
-#line 91 "squarecalc.tab.h"
+#line 85 "squarecalc.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

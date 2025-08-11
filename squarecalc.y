@@ -28,7 +28,7 @@ void yyerror(const char *s);
 
 %token <val> NUMBER
 %token NEWLINE
-%token SIN COS TAN LOG SQRT ASIN ACOS ATAN SINH COSH TANH
+%token SIN COS TAN LOG SQRT
 %token SEC CSC COT
 %token PI E
 %token '='
@@ -76,15 +76,12 @@ expr:
     | expr '^' expr           { $$ = pow($1, $3); }
     | '-' expr  %prec UMINUS  { $$ = -$2; }
     | '(' expr ')'            { $$ = $2; }
+    | SIN '^' NUMBER '(' expr ')' { $$ = pow(sin($5), $3); }
+    | COS '^' NUMBER '(' expr ')' { $$ = pow(cos($5), $3); }
+    | TAN '^' NUMBER '(' expr ')' { $$ = pow(tan($5), $3); }
     | SIN '(' expr ')'        { $$ = sin($3); }
     | COS '(' expr ')'        { $$ = cos($3); }
     | TAN '(' expr ')'        { $$ = tan($3); }
-    | ASIN '(' expr ')'       { $$ = asin($3); }
-    | ACOS '(' expr ')'       { $$ = acos($3); }
-    | ATAN '(' expr ')'       { $$ = atan($3); }
-    | SINH '(' expr ')'       { $$ = sinh($3); }
-    | COSH '(' expr ')'       { $$ = cosh($3); }
-    | TANH '(' expr ')'       { $$ = tanh($3); }
     | LOG '(' expr ')'        { $$ = log($3); }
     | SQRT '(' expr ')'       { $$ = sqrt($3); }
     | SEC '(' expr ')'        { $$ = 1.0 / cos($3); }
@@ -123,7 +120,7 @@ double get_symbol(const char *name) {
 }
 
 int main() {
-    printf("Enter an expression (e.g., x = 10, asin(1) + sinh(0)):\n");
+    printf("Enter an expression (e.g :  x = 10, sin^2(pi/2)):\n");
     yyparse();
     return 0;
 }
