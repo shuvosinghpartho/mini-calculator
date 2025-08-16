@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_SQUARECALC_TAB_H_INCLUDED
-# define YY_YY_SQUARECALC_TAB_H_INCLUDED
+#ifndef YY_YY_PROJECT_TAB_H_INCLUDED
+# define YY_YY_PROJECT_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -64,10 +64,25 @@ extern int yydebug;
     SEC = 265,                     /* SEC  */
     CSC = 266,                     /* CSC  */
     COT = 267,                     /* COT  */
-    PI = 268,                      /* PI  */
-    E = 269,                       /* E  */
-    VARIABLE = 270,                /* VARIABLE  */
-    UMINUS = 271                   /* UMINUS  */
+    SINVAL = 268,                  /* SINVAL  */
+    COSVAL = 269,                  /* COSVAL  */
+    TANVAL = 270,                  /* TANVAL  */
+    SECVAL = 271,                  /* SECVAL  */
+    CSCVAL = 272,                  /* CSCVAL  */
+    COTVAL = 273,                  /* COTVAL  */
+    ASIN = 274,                    /* ASIN  */
+    ACOS = 275,                    /* ACOS  */
+    ATAN = 276,                    /* ATAN  */
+    SINH = 277,                    /* SINH  */
+    COSH = 278,                    /* COSH  */
+    TANH = 279,                    /* TANH  */
+    LOG10 = 280,                   /* LOG10  */
+    CBRT = 281,                    /* CBRT  */
+    PI = 282,                      /* PI  */
+    E = 283,                       /* E  */
+    PHI = 284,                     /* PHI  */
+    VARIABLE = 285,                /* VARIABLE  */
+    UMINUS = 286                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -76,12 +91,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 24 "squarecalc.y"
+#line 28 "project.y"
 
     double val;
     char *str;
 
-#line 85 "squarecalc.tab.h"
+#line 100 "project.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -96,4 +111,4 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_SQUARECALC_TAB_H_INCLUDED  */
+#endif /* !YY_YY_PROJECT_TAB_H_INCLUDED  */
