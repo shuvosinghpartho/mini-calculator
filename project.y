@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define HISTORY_SIZE 10
-double history[HISTORY_SIZE];
+double history[HISTORY_SIZE]; 
 int history_index = 0;
 
 typedef struct {
@@ -32,15 +32,17 @@ void yyerror(const char *s);
 
 %token <val> NUMBER
 %token NEWLINE
-%token SIN COS TAN LOG SQRT
-%token SEC CSC COT
-%token SINVAL COSVAL TANVAL SECVAL CSCVAL COTVAL
-%token ASIN ACOS ATAN
-%token SINH COSH TANH
-%token LOG10 CBRT
-%token PI E PHI
+%token SIN COS TAN LOG SQRT 
+%token SEC CSC COT // agulo amra reciprocal functions gulo likhsi. sec = 1/cos, csc = 1/sin, cot = 1/tan.
+%token SINVAL COSVAL TANVAL SECVAL CSCVAL COTVAL // amra exect value ber korar jonno alada token use kortesi. like sin(π/6)=0.5.
+%token ASIN ACOS ATAN // inverse trig function
+%token SINH COSH TANH // hyperbolic trig function
+%token LOG10 CBRT // amra LOG10 bolte base 10 logarithm bujaici, CBRT mane cube root.
+%token PI E PHI // PI → π = 3.14159, E → e = 2.71828, and PHI (Golden Ratio) = 1.6180339887... eta akta irrational number mane ja kokkhno ses hobe na.
+                                                      // PHI { $$ = (1 + sqrt(5)) / 2; }
+                                                      // user jodi sudhu PHI likhe enter dei tobe parser sorasori golden ratio r man 1.618 return korbe.
 %token '='
-%token <str> VARIABLE
+%token <str> VARIABLE 
 
 %type <val> expr line
 
@@ -51,10 +53,12 @@ void yyerror(const char *s);
 
 %%
 
-input:
-      /* empty */
-    | input line
+input:  // start symbol, mane integer input dhorar jonno. 
+      /* empty */  // mane inout akebare khali thakte pare. like user jodi kisu nau likhe tau parser valid input dhorbe.
+    | input line  // like recursive rule, er mane input ak line er por r akta line aste pare. 
     ;
+
+
 
 line:
       assignment NEWLINE    { printf("Variable assigned.\n"); }
@@ -63,8 +67,10 @@ line:
                                   history_index = (history_index + 1) % HISTORY_SIZE;
                                   printf("= %g\n", $1);
                               }
-    | NEWLINE               { } // Fixed: Added an explicit empty action
+    | NEWLINE               { } 
     ;
+
+
 assignment:
       VARIABLE '=' expr     { add_symbol($1, $3); }
     ;
@@ -118,16 +124,25 @@ expr:
 
 %%
 
+
+
+// ei function symbol table e variable jug kortese or update kortese.
+// zodi variable like x, jodi age tekei thake tobe ter man update korbe.
+// zodi na thake notun variable hisebe add korbe
+// zodi jaiga na thake tobe error dibe
+
 void add_symbol(const char *name, double value) {
-    int i;
-    for (i = 0; i < sym_count; i++) {
+    for (int i = 0; i < sym_count; i++) {
         if (strcmp(sym_table[i].name, name) == 0) {
             sym_table[i].value = value;
             return;
         }
-    }
+    } // zodi x = 10 age tekei symbol table e thake, r notun kore x = 20 add hoi, tokhon 10 overwrite hoia 20 hoia jabe.
+
+    // notun varibale zug kora
     if (sym_count < MAX_SYMBOLS) {
-        sym_table[sym_count].name = strdup(name);
+        sym_table[sym_count].name = strdup(name); // strdup(name) → variable er nam copy kore rakhe,
+                                                  // cz, direct pointer dile pore somossa hote pre.
         sym_table[sym_count].value = value;
         sym_count++;
     } else {
@@ -135,9 +150,9 @@ void add_symbol(const char *name, double value) {
     }
 }
 
+// ei function ta symbol table teke knu variable er man ber kore ane.
 double get_symbol(const char *name) {
-    int i;
-    for (i = 0; i < sym_count; i++) {
+    for (int i = 0; i < sym_count; i++) {
         if (strcmp(sym_table[i].name, name) == 0) {
             return sym_table[i].value;
         }
@@ -146,11 +161,16 @@ double get_symbol(const char *name) {
     return 0.0;
 }
 
-double get_exact_value(const char *func, double angle) {
-    double epsilon = 0.0001;
-    // tolerance for floating point comparison
 
-    if (fabs(angle - 0.0) < epsilon) {
+// bished kisu koner(special angles) trigonometric function er exact value return kre.
+// zemon 30°, 45°, 60°, 90° ect.
+// floating point comparison sorasori kora jai na tai epsilon use kora hoiase
+// fabs holo float, double er absulute value return kortese.
+
+double get_exact_value(const char *func, double angle) {  // angle = 0 kine ta check kortese.
+    double epsilon = 0.0001; // epsilon holo khub choto akta value (like 1e-9) jeno loating-point er rounding error erano jai. 
+
+    if (fabs(angle - 0.0) < epsilon) { // 00 degree
         if (strcmp(func, "sin") == 0) return 0.0;
         if (strcmp(func, "cos") == 0) return 1.0;
         if (strcmp(func, "tan") == 0) return 0.0;
@@ -204,7 +224,7 @@ int main() {
     printf("│   - Enter any mathematical expression.        │\n");
     printf("│   - Supported operators: +, -, *, /, ^        │\n");
     printf("│   - Supported functions: sin(), cos(), etc.   │\n");
-    printf("│   - Variables: x = 10, y = 20, etc.                │\n");
+    printf("│   - Variables: x = 10, y = 20, etc.           │\n");
     printf("│   - Exit: Type 'quit' or press Ctrl+C         │\n");
     printf("└───────────────────────────────────────────────┘\n\n");
 

@@ -555,11 +555,11 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    54,    54,    56,    60,    61,    66,    69,    73,    74,
-      75,    76,    77,    78,    79,    80,    81,    89,    90,    91,
-      92,    93,    94,    95,    96,    97,    98,    99,   100,   101,
-     102,   103,   104,   105,   106,   107,   108,   109,   110,   111,
-     112,   113,   114,   115,   116
+       0,    56,    56,    58,    64,    65,    70,    75,    79,    80,
+      81,    82,    83,    84,    85,    86,    87,    95,    96,    97,
+      98,    99,   100,   101,   102,   103,   104,   105,   106,   107,
+     108,   109,   110,   111,   112,   113,   114,   115,   116,   117,
+     118,   119,   120,   121,   122
 };
 #endif
 
@@ -1231,13 +1231,13 @@ yyreduce:
   switch (yyn)
     {
   case 4: /* line: assignment NEWLINE  */
-#line 60 "project.y"
+#line 64 "project.y"
                             { printf("Variable assigned.\n"); }
 #line 1237 "project.tab.c"
     break;
 
   case 5: /* line: expr NEWLINE  */
-#line 61 "project.y"
+#line 65 "project.y"
                             {
                                   history[history_index] = (yyvsp[-1].val);
                                   history_index = (history_index + 1) % HISTORY_SIZE;
@@ -1247,67 +1247,67 @@ yyreduce:
     break;
 
   case 6: /* line: NEWLINE  */
-#line 66 "project.y"
+#line 70 "project.y"
                             { }
 #line 1253 "project.tab.c"
     break;
 
   case 7: /* assignment: VARIABLE '=' expr  */
-#line 69 "project.y"
+#line 75 "project.y"
                             { add_symbol((yyvsp[-2].str), (yyvsp[0].val)); }
 #line 1259 "project.tab.c"
     break;
 
   case 8: /* expr: NUMBER  */
-#line 73 "project.y"
+#line 79 "project.y"
                               { (yyval.val) = (yyvsp[0].val); }
 #line 1265 "project.tab.c"
     break;
 
   case 9: /* expr: VARIABLE  */
-#line 74 "project.y"
+#line 80 "project.y"
                               { (yyval.val) = get_symbol((yyvsp[0].str)); }
 #line 1271 "project.tab.c"
     break;
 
   case 10: /* expr: PI  */
-#line 75 "project.y"
+#line 81 "project.y"
                               { (yyval.val) = M_PI; }
 #line 1277 "project.tab.c"
     break;
 
   case 11: /* expr: E  */
-#line 76 "project.y"
+#line 82 "project.y"
                               { (yyval.val) = M_E; }
 #line 1283 "project.tab.c"
     break;
 
   case 12: /* expr: PHI  */
-#line 77 "project.y"
+#line 83 "project.y"
                               { (yyval.val) = (1 + sqrt(5)) / 2; }
 #line 1289 "project.tab.c"
     break;
 
   case 13: /* expr: expr '+' expr  */
-#line 78 "project.y"
+#line 84 "project.y"
                               { (yyval.val) = (yyvsp[-2].val) + (yyvsp[0].val); }
 #line 1295 "project.tab.c"
     break;
 
   case 14: /* expr: expr '-' expr  */
-#line 79 "project.y"
+#line 85 "project.y"
                               { (yyval.val) = (yyvsp[-2].val) - (yyvsp[0].val); }
 #line 1301 "project.tab.c"
     break;
 
   case 15: /* expr: expr '*' expr  */
-#line 80 "project.y"
+#line 86 "project.y"
                               { (yyval.val) = (yyvsp[-2].val) * (yyvsp[0].val); }
 #line 1307 "project.tab.c"
     break;
 
   case 16: /* expr: expr '/' expr  */
-#line 81 "project.y"
+#line 87 "project.y"
                               {
                                   if ((yyvsp[0].val) == 0) {
                                       yyerror("Division by zero");
@@ -1320,169 +1320,169 @@ yyreduce:
     break;
 
   case 17: /* expr: expr '^' expr  */
-#line 89 "project.y"
+#line 95 "project.y"
                               { (yyval.val) = pow((yyvsp[-2].val), (yyvsp[0].val)); }
 #line 1326 "project.tab.c"
     break;
 
   case 18: /* expr: '-' expr  */
-#line 90 "project.y"
+#line 96 "project.y"
                               { (yyval.val) = -(yyvsp[0].val); }
 #line 1332 "project.tab.c"
     break;
 
   case 19: /* expr: '(' expr ')'  */
-#line 91 "project.y"
+#line 97 "project.y"
                               { (yyval.val) = (yyvsp[-1].val); }
 #line 1338 "project.tab.c"
     break;
 
   case 20: /* expr: SIN '^' NUMBER '(' expr ')'  */
-#line 92 "project.y"
+#line 98 "project.y"
                                   { (yyval.val) = pow(sin((yyvsp[-1].val)), (yyvsp[-3].val)); }
 #line 1344 "project.tab.c"
     break;
 
   case 21: /* expr: COS '^' NUMBER '(' expr ')'  */
-#line 93 "project.y"
+#line 99 "project.y"
                                   { (yyval.val) = pow(cos((yyvsp[-1].val)), (yyvsp[-3].val)); }
 #line 1350 "project.tab.c"
     break;
 
   case 22: /* expr: TAN '^' NUMBER '(' expr ')'  */
-#line 94 "project.y"
+#line 100 "project.y"
                                   { (yyval.val) = pow(tan((yyvsp[-1].val)), (yyvsp[-3].val)); }
 #line 1356 "project.tab.c"
     break;
 
   case 23: /* expr: SIN '(' expr ')'  */
-#line 95 "project.y"
+#line 101 "project.y"
                               { (yyval.val) = sin((yyvsp[-1].val)); }
 #line 1362 "project.tab.c"
     break;
 
   case 24: /* expr: COS '(' expr ')'  */
-#line 96 "project.y"
+#line 102 "project.y"
                               { (yyval.val) = cos((yyvsp[-1].val)); }
 #line 1368 "project.tab.c"
     break;
 
   case 25: /* expr: TAN '(' expr ')'  */
-#line 97 "project.y"
+#line 103 "project.y"
                               { (yyval.val) = tan((yyvsp[-1].val)); }
 #line 1374 "project.tab.c"
     break;
 
   case 26: /* expr: SEC '(' expr ')'  */
-#line 98 "project.y"
+#line 104 "project.y"
                               { (yyval.val) = 1.0 / cos((yyvsp[-1].val)); }
 #line 1380 "project.tab.c"
     break;
 
   case 27: /* expr: CSC '(' expr ')'  */
-#line 99 "project.y"
+#line 105 "project.y"
                               { (yyval.val) = 1.0 / sin((yyvsp[-1].val)); }
 #line 1386 "project.tab.c"
     break;
 
   case 28: /* expr: COT '(' expr ')'  */
-#line 100 "project.y"
+#line 106 "project.y"
                               { (yyval.val) = 1.0 / tan((yyvsp[-1].val)); }
 #line 1392 "project.tab.c"
     break;
 
   case 29: /* expr: SINVAL '(' expr ')'  */
-#line 101 "project.y"
+#line 107 "project.y"
                               { (yyval.val) = get_exact_value("sin", (yyvsp[-1].val)); }
 #line 1398 "project.tab.c"
     break;
 
   case 30: /* expr: COSVAL '(' expr ')'  */
-#line 102 "project.y"
+#line 108 "project.y"
                               { (yyval.val) = get_exact_value("cos", (yyvsp[-1].val)); }
 #line 1404 "project.tab.c"
     break;
 
   case 31: /* expr: TANVAL '(' expr ')'  */
-#line 103 "project.y"
+#line 109 "project.y"
                               { (yyval.val) = get_exact_value("tan", (yyvsp[-1].val)); }
 #line 1410 "project.tab.c"
     break;
 
   case 32: /* expr: SECVAL '(' expr ')'  */
-#line 104 "project.y"
+#line 110 "project.y"
                               { (yyval.val) = 1.0 / cos((yyvsp[-1].val)); }
 #line 1416 "project.tab.c"
     break;
 
   case 33: /* expr: CSCVAL '(' expr ')'  */
-#line 105 "project.y"
+#line 111 "project.y"
                               { (yyval.val) = 1.0 / sin((yyvsp[-1].val)); }
 #line 1422 "project.tab.c"
     break;
 
   case 34: /* expr: COTVAL '(' expr ')'  */
-#line 106 "project.y"
+#line 112 "project.y"
                               { (yyval.val) = 1.0 / tan((yyvsp[-1].val)); }
 #line 1428 "project.tab.c"
     break;
 
   case 35: /* expr: ASIN '(' expr ')'  */
-#line 107 "project.y"
+#line 113 "project.y"
                               { (yyval.val) = asin((yyvsp[-1].val)); }
 #line 1434 "project.tab.c"
     break;
 
   case 36: /* expr: ACOS '(' expr ')'  */
-#line 108 "project.y"
+#line 114 "project.y"
                               { (yyval.val) = acos((yyvsp[-1].val)); }
 #line 1440 "project.tab.c"
     break;
 
   case 37: /* expr: ATAN '(' expr ')'  */
-#line 109 "project.y"
+#line 115 "project.y"
                               { (yyval.val) = atan((yyvsp[-1].val)); }
 #line 1446 "project.tab.c"
     break;
 
   case 38: /* expr: SINH '(' expr ')'  */
-#line 110 "project.y"
+#line 116 "project.y"
                               { (yyval.val) = sinh((yyvsp[-1].val)); }
 #line 1452 "project.tab.c"
     break;
 
   case 39: /* expr: COSH '(' expr ')'  */
-#line 111 "project.y"
+#line 117 "project.y"
                               { (yyval.val) = cosh((yyvsp[-1].val)); }
 #line 1458 "project.tab.c"
     break;
 
   case 40: /* expr: TANH '(' expr ')'  */
-#line 112 "project.y"
+#line 118 "project.y"
                               { (yyval.val) = tanh((yyvsp[-1].val)); }
 #line 1464 "project.tab.c"
     break;
 
   case 41: /* expr: LOG '(' expr ')'  */
-#line 113 "project.y"
+#line 119 "project.y"
                               { (yyval.val) = log((yyvsp[-1].val)); }
 #line 1470 "project.tab.c"
     break;
 
   case 42: /* expr: LOG10 '(' expr ')'  */
-#line 114 "project.y"
+#line 120 "project.y"
                               { (yyval.val) = log10((yyvsp[-1].val)); }
 #line 1476 "project.tab.c"
     break;
 
   case 43: /* expr: SQRT '(' expr ')'  */
-#line 115 "project.y"
+#line 121 "project.y"
                               { (yyval.val) = sqrt((yyvsp[-1].val)); }
 #line 1482 "project.tab.c"
     break;
 
   case 44: /* expr: CBRT '(' expr ')'  */
-#line 116 "project.y"
+#line 122 "project.y"
                               { (yyval.val) = cbrt((yyvsp[-1].val)); }
 #line 1488 "project.tab.c"
     break;
@@ -1681,19 +1681,28 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 119 "project.y"
+#line 125 "project.y"
 
+
+
+
+// ei function symbol table e variable jug kortese or update kortese.
+// zodi variable like x, jodi age tekei thake tobe ter man update korbe.
+// zodi na thake notun variable hisebe add korbe
+// zodi jaiga na thake tobe error dibe
 
 void add_symbol(const char *name, double value) {
-    int i;
-    for (i = 0; i < sym_count; i++) {
+    for (int i = 0; i < sym_count; i++) {
         if (strcmp(sym_table[i].name, name) == 0) {
             sym_table[i].value = value;
             return;
         }
-    }
+    } // zodi x = 10 age tekei symbol table e thake, r notun kore x = 20 add hoi, tokhon 10 overwrite hoia 20 hoia jabe.
+
+    // notun varibale zug kora
     if (sym_count < MAX_SYMBOLS) {
-        sym_table[sym_count].name = strdup(name);
+        sym_table[sym_count].name = strdup(name); // strdup(name) → variable er nam copy kore rakhe,
+                                                  // cz, direct pointer dile pore somossa hote pre.
         sym_table[sym_count].value = value;
         sym_count++;
     } else {
@@ -1701,9 +1710,9 @@ void add_symbol(const char *name, double value) {
     }
 }
 
+// ei function ta symbol table teke knu variable er man ber kore ane.
 double get_symbol(const char *name) {
-    int i;
-    for (i = 0; i < sym_count; i++) {
+    for (int i = 0; i < sym_count; i++) {
         if (strcmp(sym_table[i].name, name) == 0) {
             return sym_table[i].value;
         }
@@ -1712,11 +1721,16 @@ double get_symbol(const char *name) {
     return 0.0;
 }
 
-double get_exact_value(const char *func, double angle) {
-    double epsilon = 0.0001;
-    // tolerance for floating point comparison
 
-    if (fabs(angle - 0.0) < epsilon) {
+// bished kisu koner(special angles) trigonometric function er exact value return kre.
+// zemon 30°, 45°, 60°, 90° ect.
+// floating point comparison sorasori kora jai na tai epsilon use kora hoiase
+// fabs holo float, double er absulute value return kortese.
+
+double get_exact_value(const char *func, double angle) {  // angle = 0 kine ta check kortese.
+    double epsilon = 0.0001; // epsilon holo khub choto akta value (like 1e-9) jeno loating-point er rounding error erano jai. 
+
+    if (fabs(angle - 0.0) < epsilon) { // 00 degree
         if (strcmp(func, "sin") == 0) return 0.0;
         if (strcmp(func, "cos") == 0) return 1.0;
         if (strcmp(func, "tan") == 0) return 0.0;
@@ -1770,7 +1784,7 @@ int main() {
     printf("│   - Enter any mathematical expression.        │\n");
     printf("│   - Supported operators: +, -, *, /, ^        │\n");
     printf("│   - Supported functions: sin(), cos(), etc.   │\n");
-    printf("│   - Variables: x = 10, y = 20, etc.                │\n");
+    printf("│   - Variables: x = 10, y = 20, etc.           │\n");
     printf("│   - Exit: Type 'quit' or press Ctrl+C         │\n");
     printf("└───────────────────────────────────────────────┘\n\n");
 
